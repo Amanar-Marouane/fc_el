@@ -15,7 +15,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #ffffff;
   }
 }
 
@@ -27,17 +27,17 @@ body {
 
 @page {
   size: A4;
-  margin: 0;
+  margin: 8mm 0;
 }
 
 @media print {
   html,
   body {
-    width: 210mm;
-    height: 297mm;
+    width: 100%;
+    min-height: 297mm;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
     background: #fff !important;
     color: #171717;
     -webkit-print-color-adjust: exact;
@@ -46,11 +46,71 @@ body {
 
   #invoice-page {
     width: 210mm;
-    height: 297mm;
+    min-height: auto;
     margin: 0 !important;
-    overflow: hidden;
+    overflow: visible;
+    background: #fff !important;
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  [class*="print:bg-transparent"],
+  [class*="print:bg-neutral-100"],
+  [class*="print:bg-neutral-200"],
+  [class*="print:bg-neutral-900/80"],
+  [class*="print:bg-neutral-900/65"] {
+    background: #fff !important;
+  }
+
+  .print\:fixed.print\:inset-0 {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    background: #fff !important;
+  }
+
+  [class*="shadow"],
+  [class*="backdrop-blur"] {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  .invoice-lines-table thead {
+    display: table-header-group;
+  }
+
+  .invoice-lines-table tfoot {
+    display: table-footer-group;
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  .invoice-lines-table tr {
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  .invoice-lines-table td,
+  .invoice-lines-table th {
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  .invoice-lines-table .invoice-row-before-total {
     page-break-after: avoid;
     break-after: avoid-page;
-    break-inside: avoid-page;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
   }
 }
